@@ -4,14 +4,23 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements RadioGroup.OnCheckedChangeListener {
+
+    TextView answerText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        RadioGroup gp = (RadioGroup)findViewById(R.id.answerGroup);
+        gp.setOnCheckedChangeListener(this);
+
+        answerText = (TextView)findViewById(R.id.answerText);
     }
 
 
@@ -32,5 +41,17 @@ public class MainActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+        if (checkedId == R.id.answerA)
+            answerText.setText("A");
+        else if (checkedId == R.id.answerB)
+            answerText.setText("B");
+        else if (checkedId == R.id.answerC)
+            answerText.setText("C");
+        else if (checkedId == R.id.answerD)
+            answerText.setText("D");
     }
 }

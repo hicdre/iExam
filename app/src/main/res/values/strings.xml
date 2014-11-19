@@ -4,5 +4,6 @@
     <string name="app_name">IExam</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="your_answer">你的答案是：</string>
 
 </resources>
