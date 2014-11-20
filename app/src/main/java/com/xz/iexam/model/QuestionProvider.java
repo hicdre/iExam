@@ -26,7 +26,7 @@ public class QuestionProvider {
     private HashMap<Integer, Question> questionMaps;
 
     public void Init() {
-        String s =  "[{\"id\":100,\"details\":\"泥泞道路对安全行车的主要影响是什么？\",\"answers\": [\"行驶阻力变小\", \"车轮极易滑转和侧滑\", \"能见度低，视野模糊\", \"路面附着力增大\"], \"result\": 2}\"]";
+        String s =  "[{\"id\":100,\"details\":\"泥泞道路对安全行车的主要影响是什么？\",\"answers\": [\"行驶阻力变小\", \"车轮极易滑转和侧滑\", \"能见度低，视野模糊\", \"路面附着力增大\"], \"result\": 2}]";
         try{
             JSONTokener jsonParser = new JSONTokener(s);
             JSONArray jsonArray = (JSONArray)jsonParser.nextValue();
@@ -39,8 +39,8 @@ public class QuestionProvider {
 
                 JSONArray jsonSubArray = jsonObject.getJSONArray("answers");
                 ArrayList<String> answerList = new ArrayList<String>();
-                for (int j = 0; j < jsonSubArray.length(); j++) {
-                    answerList.add(jsonArray.getString(i));
+                for (int j = 0; j < jsonSubArray.length(); ++j) {
+                    answerList.add(jsonSubArray.getString(j));
                 }
 
                 if (answerList.size() < result)

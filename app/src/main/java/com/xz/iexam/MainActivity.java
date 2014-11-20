@@ -4,13 +4,22 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+
+import com.xz.iexam.model.Question;
+import com.xz.iexam.model.QuestionProvider;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends Activity implements RadioGroup.OnCheckedChangeListener {
 
-    TextView answerText;
+    TextView textAnswer;
+    TextView textDetails;
+    ArrayList<Question> questions;
+    int currentIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +29,26 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
         RadioGroup gp = (RadioGroup)findViewById(R.id.answerGroup);
         gp.setOnCheckedChangeListener(this);
 
-        answerText = (TextView)findViewById(R.id.answerText);
+        textAnswer = (TextView)findViewById(R.id.answerText);
+        textDetails = (TextView)findViewById(R.id.textDetails);
+
+        questions =  QuestionProvider.getInstance().GetQuestions();
+        currentIndex = 0;
+        ShowQuestion();
+    }
+
+    public void ShowQuestion()
+    {
+        Question q = questions.get(currentIndex);
+        textDetails.setText(q.getDetails());
+
+        ArrayList<String> answers = q.getAnswers();
+        int ids[] = {R.id.answerA, R.id.answerB, R.id.answerC, R.id.answerD};
+        for (int i =0; i < answers.size(); ++i)
+        {
+            RadioButton b = (RadioButton)findViewById(ids[i]);
+            b.setText(answers.get(i));
+        }
     }
 
 
@@ -46,12 +74,12 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         if (checkedId == R.id.answerA)
-            answerText.setText("A");
+            textAnswer.setText("A");
         else if (checkedId == R.id.answerB)
-            answerText.setText("B");
+            textAnswer.setText("B");
         else if (checkedId == R.id.answerC)
-            answerText.setText("C");
+            textAnswer.setText("C");
         else if (checkedId == R.id.answerD)
-            answerText.setText("D");
+            textAnswer.setText("D");
     }
 }
